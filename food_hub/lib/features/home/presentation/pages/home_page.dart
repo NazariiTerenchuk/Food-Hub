@@ -178,7 +178,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       return CategoryCard(
                         category: category,
                         onTap: () => context.go(
-                          '${AppRoutes.recipeList}?category=${category.name}',
+                          '${AppRoutes.recipeList}?category=${Uri.encodeComponent(category.name)}',
                         ),
                       );
                     },
