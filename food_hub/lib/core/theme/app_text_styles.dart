@@ -4,8 +4,6 @@ import 'app_colors.dart';
 
 /// MD3-compatible text styles using Outfit font via google_fonts.
 abstract final class AppTextStyles {
-  static TextStyle get _base => GoogleFonts.outfit();
-
   // Display
   static TextStyle get displayLarge => GoogleFonts.outfit(
         fontSize: 57,

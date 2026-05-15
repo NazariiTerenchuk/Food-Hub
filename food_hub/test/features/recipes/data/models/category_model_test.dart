@@ -46,7 +46,12 @@ void main() {
 
     test('two models with different ids are not equal', () {
       final a = CategoryModel.fromJson(tJson);
-      final b = CategoryModel.fromJson({...tJson, 'idCategory': '2'});
+      final b = CategoryModel.fromJson(const {
+        'idCategory': '2',
+        'strCategory': 'Beef',
+        'strCategoryThumb': 'https://example.com/beef.png',
+        'strCategoryDescription': 'All beef dishes',
+      });
 
       expect(a, isNot(equals(b)));
     });
