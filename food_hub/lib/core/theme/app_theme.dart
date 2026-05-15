@@ -27,8 +27,6 @@ abstract final class AppTheme {
           onSurface: AppColors.onSurfaceLight,
           surfaceContainerHighest: AppColors.surfaceVariantLight,
           outline: AppColors.outlineLight,
-          background: AppColors.backgroundLight,
-          onBackground: AppColors.onBackgroundLight,
         ),
         textTheme: _buildTextTheme(AppColors.onSurfaceLight),
         appBarTheme: _appBarTheme(
@@ -60,7 +58,7 @@ abstract final class AppTheme {
         ),
         navigationBarTheme: _navBarTheme(
           background: AppColors.surfaceLight,
-          indicator: AppColors.primaryLight.withOpacity(0.2),
+          indicator: AppColors.primaryLight.withValues(alpha: 0.2),
           selected: AppColors.primary,
           unselected: AppColors.outlineLight,
         ),
@@ -98,8 +96,6 @@ abstract final class AppTheme {
           onSurface: AppColors.onSurfaceDark,
           surfaceContainerHighest: AppColors.surfaceVariantDark,
           outline: AppColors.outlineDark,
-          background: AppColors.backgroundDark,
-          onBackground: AppColors.onBackgroundDark,
         ),
         textTheme: _buildTextTheme(AppColors.onSurfaceDark),
         appBarTheme: _appBarTheme(
@@ -131,7 +127,7 @@ abstract final class AppTheme {
         ),
         navigationBarTheme: _navBarTheme(
           background: AppColors.surfaceDark,
-          indicator: AppColors.primaryLight.withOpacity(0.2),
+          indicator: AppColors.primaryLight.withValues(alpha: 0.2),
           selected: AppColors.primaryLight,
           unselected: AppColors.outlineDark,
         ),
@@ -179,7 +175,7 @@ abstract final class AppTheme {
         titleTextStyle: AppTextStyles.titleLarge.copyWith(color: foreground),
       );
 
-  static CardTheme _cardTheme(Color surface) => CardTheme(
+  static CardThemeData _cardTheme(Color surface) => CardThemeData(
         color: surface,
         elevation: 0,
         shape: RoundedRectangleBorder(
