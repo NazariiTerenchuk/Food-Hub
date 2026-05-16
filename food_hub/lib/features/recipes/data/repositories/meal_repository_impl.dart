@@ -30,6 +30,15 @@ final class MealRepositoryImpl implements MealRepository {
   }
 
   @override
+  Future<List<MealModel>> getMealsByArea(String area) async {
+    try {
+      return await _datasource.getMealsByArea(area);
+    } on NetworkException {
+      rethrow;
+    }
+  }
+
+  @override
   Future<MealDetailModel> getMealDetail(String id) async {
     try {
       return await _datasource.getMealDetail(id);

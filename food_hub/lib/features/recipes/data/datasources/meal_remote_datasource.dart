@@ -9,6 +9,7 @@ import '../models/meal_model.dart';
 abstract interface class MealRemoteDatasource {
   Future<List<CategoryModel>> getCategories();
   Future<List<MealModel>> getMealsByCategory(String category);
+  Future<List<MealModel>> getMealsByArea(String area);
   Future<MealDetailModel> getMealDetail(String id);
   Future<List<MealModel>> searchMeals(String query);
   Future<MealDetailModel> getRandomMeal();
@@ -33,6 +34,18 @@ final class MealRemoteDatasourceImpl implements MealRemoteDatasource {
     final data = await _client.get(
       ApiConstants.filter,
       queryParameters: {ApiConstants.categoryParam: category},
+    );
+    final list = data['meals'] as List? ?? [];
+    return list
+        .map((e) => MealModel.fromJson(e as Map<String, dynamic>))
+        .toList();
+  }
+
+  @override
+  Future<List<MealModel>> getMealsByArea(String area) async {
+    final data = await _client.get(
+      ApiConstants.filter,
+      queryParameters: {ApiConstants.areaParam: area},
     );
     final list = data['meals'] as List? ?? [];
     return list

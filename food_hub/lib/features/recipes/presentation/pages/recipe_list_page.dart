@@ -4,11 +4,11 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../shared/widgets/empty_view.dart';
 import '../../../../shared/widgets/error_view.dart';
+import '../providers/filter_provider.dart';
 import '../providers/meal_providers.dart';
 import '../widgets/meal_card.dart';
 
-/// Displays all meals belonging to [categoryName].
-/// Supports live search filtering and pull-to-refresh.
+/// Displays meals for a [categoryName] with optional area filter chips.
 class RecipeListPage extends ConsumerStatefulWidget {
   final String categoryName;
 
@@ -22,6 +22,15 @@ class _RecipeListPageState extends ConsumerState<RecipeListPage> {
   final _searchController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    // Clear filter when entering a new category list
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => ref.read(filterProvider.notifier).clearAll(),
+    );
+  }
+
+  @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
@@ -30,13 +39,22 @@ class _RecipeListPageState extends ConsumerState<RecipeListPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final mealsAsync =
-        ref.watch(mealsByCategoryProvider(widget.categoryName));
+    final filter = ref.watch(filterProvider);
+
+    // Switch data source depending on active area filter
+    final mealsAsync = filter.hasArea
+        ? ref.watch(mealsByAreaProvider(filter.selectedArea!))
+        : ref.watch(mealsByCategoryProvider(widget.categoryName));
 
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () async =>
-            ref.invalidate(mealsByCategoryProvider(widget.categoryName)),
+        onRefresh: () async {
+          if (filter.hasArea) {
+            ref.invalidate(mealsByAreaProvider(filter.selectedArea!));
+          } else {
+            ref.invalidate(mealsByCategoryProvider(widget.categoryName));
+          }
+        },
         child: CustomScrollView(
           slivers: [
             // ── App Bar ────────────────────────────────────────────────
@@ -50,7 +68,9 @@ class _RecipeListPageState extends ConsumerState<RecipeListPage> {
               ),
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(
-                  widget.categoryName,
+                  filter.hasArea
+                      ? '${filter.selectedArea} Cuisine'
+                      : widget.categoryName,
                   style: theme.textTheme.titleLarge
                       ?.copyWith(fontWeight: FontWeight.w800),
                 ),
@@ -67,7 +87,9 @@ class _RecipeListPageState extends ConsumerState<RecipeListPage> {
                 padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
                 child: SearchBar(
                   controller: _searchController,
-                  hintText: 'Search in ${widget.categoryName}...',
+                  hintText: filter.hasArea
+                      ? 'Search in ${filter.selectedArea}...'
+                      : 'Search in ${widget.categoryName}...',
                   leading: const Icon(Icons.search_rounded),
                   onChanged: (_) => setState(() {}),
                   elevation: const WidgetStatePropertyAll(1),
@@ -75,7 +97,33 @@ class _RecipeListPageState extends ConsumerState<RecipeListPage> {
               ),
             ),
 
-            // ── Meals ──────────────────────────────────────────────────
+            // ── Area filter chips ──────────────────────────────────────
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 48,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: popularAreas.length,
+                  separatorBuilder: (_, __) => const SizedBox(width: 8),
+                  itemBuilder: (_, i) {
+                    final area = popularAreas[i];
+                    final selected = filter.selectedArea == area;
+                    return FilterChip(
+                      label: Text(area),
+                      selected: selected,
+                      onSelected: (_) =>
+                          ref.read(filterProvider.notifier).toggleArea(area),
+                      selectedColor:
+                          theme.colorScheme.primaryContainer,
+                      checkmarkColor: theme.colorScheme.primary,
+                    );
+                  },
+                ),
+              ),
+            ),
+
+            // ── Meals list ─────────────────────────────────────────────
             mealsAsync.when(
               loading: () => SliverList.builder(
                 itemCount: 6,
@@ -84,8 +132,15 @@ class _RecipeListPageState extends ConsumerState<RecipeListPage> {
               error: (e, _) => SliverFillRemaining(
                 child: ErrorView(
                   message: e.toString(),
-                  onRetry: () => ref.invalidate(
-                      mealsByCategoryProvider(widget.categoryName)),
+                  onRetry: () {
+                    if (filter.hasArea) {
+                      ref.invalidate(
+                          mealsByAreaProvider(filter.selectedArea!));
+                    } else {
+                      ref.invalidate(
+                          mealsByCategoryProvider(widget.categoryName));
+                    }
+                  },
                 ),
               ),
               data: (meals) {
@@ -93,15 +148,15 @@ class _RecipeListPageState extends ConsumerState<RecipeListPage> {
                 final filtered = q.isEmpty
                     ? meals
                     : meals
-                        .where((m) =>
-                            m.name.toLowerCase().contains(q))
+                        .where(
+                            (m) => m.name.toLowerCase().contains(q))
                         .toList();
 
                 if (filtered.isEmpty) {
                   return const SliverFillRemaining(
                     child: EmptyView(
                       title: 'No recipes found',
-                      subtitle: 'Try a different search term.',
+                      subtitle: 'Try a different search or filter.',
                     ),
                   );
                 }

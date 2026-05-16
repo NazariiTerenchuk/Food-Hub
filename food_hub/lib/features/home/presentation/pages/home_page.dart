@@ -7,8 +7,9 @@ import '../../../../shared/widgets/empty_view.dart';
 import '../../../../shared/widgets/error_view.dart';
 import '../../../recipes/presentation/providers/meal_providers.dart';
 import '../widgets/category_card.dart';
+import '../widgets/meal_of_day_card.dart';
 
-/// Main home screen showing a search bar and categories grid.
+/// Main home screen: search, Meal of the Day, categories grid.
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
@@ -34,10 +35,13 @@ class _HomePageState extends ConsumerState<HomePage> {
     return Scaffold(
       body: RefreshIndicator(
         color: AppColors.primary,
-        onRefresh: () async => ref.invalidate(categoriesProvider),
+        onRefresh: () async {
+          ref.invalidate(categoriesProvider);
+          ref.invalidate(mealOfDayProvider);
+        },
         child: CustomScrollView(
           slivers: [
-            // ── App Bar ─────────────────────────────────────────────────
+            // ── App Bar ────────────────────────────────────────────────
             SliverAppBar(
               floating: true,
               snap: true,
@@ -48,18 +52,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                   start: 20,
                   bottom: 16,
                 ),
-                title: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'FoodHub',
-                      style: theme.textTheme.headlineSmall?.copyWith(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ],
+                title: Text(
+                  'FoodHub',
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
               actions: [
@@ -71,17 +69,20 @@ class _HomePageState extends ConsumerState<HomePage> {
                   icon: AnimatedSwitcher(
                     duration: const Duration(milliseconds: 200),
                     child: Icon(
-                      _searchActive ? Icons.close_rounded : Icons.search_rounded,
+                      _searchActive
+                          ? Icons.close_rounded
+                          : Icons.search_rounded,
                       key: ValueKey(_searchActive),
                     ),
                   ),
-                  tooltip: _searchActive ? 'Close search' : 'Search recipes',
+                  tooltip:
+                      _searchActive ? 'Close search' : 'Search recipes',
                 ),
                 const SizedBox(width: 8),
               ],
             ),
 
-            // ── Search bar ───────────────────────────────────────────────
+            // ── Search bar ─────────────────────────────────────────────
             if (_searchActive)
               SliverToBoxAdapter(
                 child: Padding(
@@ -96,33 +97,39 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               ),
 
-            // ── Greeting ─────────────────────────────────────────────────
+            // ── Meal of the Day ────────────────────────────────────────
+            if (!_searchActive) ...[
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 4),
+                  child: Text(
+                    'Meal of the Day',
+                    style: theme.textTheme.titleLarge
+                        ?.copyWith(fontWeight: FontWeight.w800),
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: MealOfDayCard(),
+                ),
+              ),
+            ],
+
+            // ── Categories header ──────────────────────────────────────
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'What would you like to cook today? 🍽️',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        color: theme.colorScheme.onSurface
-                            .withValues(alpha: 0.7),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      'Categories',
-                      style: theme.textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ],
+                padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
+                child: Text(
+                  'Categories',
+                  style: theme.textTheme.titleLarge
+                      ?.copyWith(fontWeight: FontWeight.w800),
                 ),
               ),
             ),
 
-            // ── Categories Grid ──────────────────────────────────────────
+            // ── Categories Grid ────────────────────────────────────────
             categoriesAsync.when(
               loading: () => SliverPadding(
                 padding: const EdgeInsets.all(16),
@@ -131,10 +138,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
                   childAspectRatio: 0.85,
-                  children: List.generate(
-                    8,
-                    (_) => _ShimmerCard(),
-                  ),
+                  children: List.generate(8, (_) => const _ShimmerCard()),
                 ),
               ),
               error: (error, _) => SliverFillRemaining(
@@ -144,13 +148,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               ),
               data: (categories) {
-                // Filter by search query if active
                 final filtered = _searchController.text.isEmpty
                     ? categories
                     : categories
-                        .where((c) => c.name
-                            .toLowerCase()
-                            .contains(_searchController.text.toLowerCase()))
+                        .where((c) => c.name.toLowerCase().contains(
+                              _searchController.text.toLowerCase(),
+                            ))
                         .toList();
 
                 if (filtered.isEmpty) {
@@ -193,8 +196,9 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 }
 
-/// Shimmer placeholder card shown while categories are loading.
 class _ShimmerCard extends StatelessWidget {
+  const _ShimmerCard();
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

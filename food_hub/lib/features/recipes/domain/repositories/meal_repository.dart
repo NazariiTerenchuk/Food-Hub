@@ -7,6 +7,7 @@ import '../../data/models/meal_model.dart';
 abstract interface class MealRepository {
   Future<List<CategoryModel>> getCategories();
   Future<List<MealModel>> getMealsByCategory(String category);
+  Future<List<MealModel>> getMealsByArea(String area);
   Future<MealDetailModel> getMealDetail(String id);
   Future<List<MealModel>> searchMeals(String query);
   Future<MealDetailModel> getRandomMeal();

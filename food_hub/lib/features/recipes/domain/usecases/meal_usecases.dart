@@ -18,6 +18,14 @@ final class GetMealsByCategoryUseCase {
       _repository.getMealsByCategory(category);
 }
 
+/// Returns all meals from a given cuisine [area] (e.g. "Italian", "Chinese").
+final class GetMealsByAreaUseCase {
+  final MealRepository _repository;
+  const GetMealsByAreaUseCase(this._repository);
+  Future<List<MealModel>> call(String area) =>
+      _repository.getMealsByArea(area);
+}
+
 /// Returns full details for a meal identified by [id].
 final class GetMealDetailUseCase {
   final MealRepository _repository;
