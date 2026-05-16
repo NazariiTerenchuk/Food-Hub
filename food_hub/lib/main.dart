@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -7,12 +8,18 @@ import 'core/providers/app_providers.dart';
 import 'core/router/app_router.dart';
 import 'core/services/storage_service.dart';
 import 'core/theme/app_theme.dart';
+import 'firebase_options.dart';
 import 'l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize SharedPreferences before the widget tree is built
+  // ── Firebase ──────────────────────────────────────────────────────────
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // ── SharedPreferences ─────────────────────────────────────────────────
   final prefs = await SharedPreferences.getInstance();
   final storageService = StorageService(prefs);
 
@@ -23,7 +30,6 @@ Future<void> main() async {
 
   runApp(
     ProviderScope(
-      // Override the storage provider so all notifiers have access to it
       overrides: [
         storageServiceProvider.overrideWithValue(storageService),
       ],
@@ -33,8 +39,7 @@ Future<void> main() async {
 }
 
 /// Root application widget.
-/// Watches [themeProvider] and [languageProvider] so the whole app rebuilds
-/// when the user changes the theme or language in settings.
+/// Watches [themeProvider], [languageProvider] and [routerProvider].
 class FoodHubApp extends ConsumerWidget {
   const FoodHubApp({super.key});
 
@@ -42,17 +47,14 @@ class FoodHubApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeProvider);
     final locale = ref.watch(languageProvider);
+    final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
       title: 'FoodHub',
       debugShowCheckedModeBanner: false,
-
-      // MD3 Themes
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: themeMode,
-
-      // Localizations
       locale: locale,
       supportedLocales: appSupportedLocales,
       localizationsDelegates: const [
@@ -61,9 +63,7 @@ class FoodHubApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-
-      // GoRouter
-      routerConfig: appRouter,
+      routerConfig: router,
     );
   }
 }

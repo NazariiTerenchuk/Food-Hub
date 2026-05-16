@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../features/add_recipe/presentation/pages/add_recipe_page.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
+import '../../features/auth/presentation/providers/auth_provider.dart';
 import '../../features/favorites/presentation/pages/favorites_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/profile/presentation/pages/profile_page.dart';
@@ -23,80 +24,104 @@ abstract final class AppRoutes {
   static const String profile = '/profile';
 }
 
-/// GoRouter configuration for FoodHub.
-/// Uses shell route for bottom navigation and redirect for auth guard.
-final GoRouter appRouter = GoRouter(
-  initialLocation: AppRoutes.home,
-  debugLogDiagnostics: true,
+/// Routes that require the user to be logged in.
+const _protectedPaths = {
+  AppRoutes.addRecipe,
+  AppRoutes.profile,
+};
 
-  // TODO(auth): Replace with real auth state from Riverpod in Commit 17
-  redirect: (BuildContext context, GoRouterState state) {
-    // Placeholder: no redirect until Firebase Auth is integrated
+/// [ChangeNotifier] that bridges Riverpod auth state to GoRouter refresh.
+class _RouterNotifier extends ChangeNotifier {
+  final Ref _ref;
+  _RouterNotifier(this._ref) {
+    _ref.listen(authStateProvider, (_, __) => notifyListeners());
+  }
+
+  String? redirect(BuildContext context, GoRouterState state) {
+    final isLoggedIn = _ref.read(isLoggedInProvider);
+    final path = state.uri.path;
+    final isAuthRoute = path == AppRoutes.login || path == AppRoutes.register;
+    final isProtected = _protectedPaths.contains(path);
+
+    if (!isLoggedIn && isProtected) return AppRoutes.login;
+    if (isLoggedIn && isAuthRoute) return AppRoutes.home;
     return null;
-  },
+  }
+}
 
-  routes: [
-    // ── Auth routes (no shell) ──────────────────────────────────────────
-    GoRoute(
-      path: AppRoutes.login,
-      name: 'login',
-      builder: (context, state) => const LoginPage(),
-    ),
-    GoRoute(
-      path: AppRoutes.register,
-      name: 'register',
-      builder: (context, state) => const RegisterPage(),
-    ),
+/// GoRouter as a Riverpod Provider so it can watch auth state.
+final routerProvider = Provider<GoRouter>((ref) {
+  final notifier = _RouterNotifier(ref);
+  ref.onDispose(notifier.dispose);
 
-    // ── Main shell with bottom navigation ──────────────────────────────
-    ShellRoute(
-      builder: (context, state, child) => AppShell(child: child),
-      routes: [
-        GoRoute(
-          path: AppRoutes.home,
-          name: 'home',
-          builder: (context, state) => const HomePage(),
-        ),
-        GoRoute(
-          path: AppRoutes.favorites,
-          name: 'favorites',
-          builder: (context, state) => const FavoritesPage(),
-        ),
-        GoRoute(
-          path: AppRoutes.addRecipe,
-          name: 'addRecipe',
-          builder: (context, state) => const AddRecipePage(),
-        ),
-        GoRoute(
-          path: AppRoutes.profile,
-          name: 'profile',
-          builder: (context, state) => const ProfilePage(),
-        ),
-      ],
-    ),
+  return GoRouter(
+    initialLocation: AppRoutes.home,
+    debugLogDiagnostics: true,
+    refreshListenable: notifier,
+    redirect: notifier.redirect,
 
-    // ── Recipe routes (no shell — full-screen) ─────────────────────────
-    GoRoute(
-      path: AppRoutes.recipeList,
-      name: 'recipeList',
-      builder: (context, state) {
-        final category = state.uri.queryParameters['category'] ?? '';
-        return RecipeListPage(categoryName: category);
-      },
-    ),
-    GoRoute(
-      path: AppRoutes.recipeDetail,
-      name: 'recipeDetail',
-      builder: (context, state) {
-        final mealId = state.uri.queryParameters['id'] ?? '';
-        return RecipeDetailPage(mealId: mealId);
-      },
-    ),
-  ],
+    routes: [
+      // ── Auth routes (no shell) ────────────────────────────────────────
+      GoRoute(
+        path: AppRoutes.login,
+        name: 'login',
+        builder: (context, state) => const LoginPage(),
+      ),
+      GoRoute(
+        path: AppRoutes.register,
+        name: 'register',
+        builder: (context, state) => const RegisterPage(),
+      ),
 
-  errorBuilder: (context, state) => Scaffold(
-    body: Center(
-      child: Text('404 — Page not found: ${state.uri}'),
+      // ── Main shell with bottom navigation ─────────────────────────────
+      ShellRoute(
+        builder: (context, state, child) => AppShell(child: child),
+        routes: [
+          GoRoute(
+            path: AppRoutes.home,
+            name: 'home',
+            builder: (context, state) => const HomePage(),
+          ),
+          GoRoute(
+            path: AppRoutes.favorites,
+            name: 'favorites',
+            builder: (context, state) => const FavoritesPage(),
+          ),
+          GoRoute(
+            path: AppRoutes.addRecipe,
+            name: 'addRecipe',
+            builder: (context, state) => const AddRecipePage(),
+          ),
+          GoRoute(
+            path: AppRoutes.profile,
+            name: 'profile',
+            builder: (context, state) => const ProfilePage(),
+          ),
+        ],
+      ),
+
+      // ── Recipe routes (full-screen, no shell) ─────────────────────────
+      GoRoute(
+        path: AppRoutes.recipeList,
+        name: 'recipeList',
+        builder: (context, state) {
+          final category =
+              state.uri.queryParameters['category'] ?? '';
+          return RecipeListPage(categoryName: category);
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.recipeDetail,
+        name: 'recipeDetail',
+        builder: (context, state) {
+          final mealId = state.uri.queryParameters['id'] ?? '';
+          return RecipeDetailPage(mealId: mealId);
+        },
+      ),
+    ],
+
+    errorBuilder: (context, state) => Scaffold(
+      body: Center(child: Text('404 — Page not found: ${state.uri}')),
     ),
-  ),
-);
+  );
+});

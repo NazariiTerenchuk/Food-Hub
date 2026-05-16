@@ -6,6 +6,9 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../shared/widgets/error_view.dart';
 import '../../../../shared/widgets/loading_view.dart';
+import '../../../auth/presentation/providers/auth_provider.dart';
+import '../../../favorites/data/models/favorite_meal_model.dart';
+import '../../../favorites/presentation/providers/favorites_provider.dart';
 import '../../data/models/meal_detail_model.dart';
 import '../providers/meal_providers.dart';
 
@@ -35,10 +38,31 @@ class RecipeDetailPage extends ConsumerWidget {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-class _DetailBody extends StatelessWidget {
+class _DetailBody extends ConsumerWidget {
   final MealDetailModel meal;
 
   const _DetailBody({required this.meal});
+
+  Future<void> _toggleFavorite(WidgetRef ref) async {
+    final uid = ref.read(currentUserProvider)?.uid;
+    if (uid == null) return;
+    final repo = ref.read(favoritesRepositoryProvider);
+    final isFav = await repo.isFavorite(uid, meal.id);
+    if (isFav) {
+      await repo.removeFavorite(uid, meal.id);
+    } else {
+      await repo.addFavorite(
+        uid,
+        FavoriteMealModel(
+          mealId: meal.id,
+          name: meal.name,
+          thumbnailUrl: meal.thumbnailUrl,
+          category: meal.category,
+          addedAt: DateTime.now(),
+        ),
+      );
+    }
+  }
 
   Future<void> _openYoutube(String url) async {
     final uri = Uri.parse(url);
@@ -55,9 +79,11 @@ class _DetailBody extends StatelessWidget {
       .toList();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final steps = _parseSteps(meal.instructions);
+    final isFavAsync = ref.watch(isFavoriteProvider(meal.id));
+    final isFav = isFavAsync.value ?? false;
 
     return Scaffold(
       body: CustomScrollView(
@@ -85,10 +111,15 @@ class _DetailBody extends StatelessWidget {
                   backgroundColor:
                       theme.colorScheme.surface.withValues(alpha: 0.85),
                   child: IconButton(
-                    icon: const Icon(Icons.favorite_border_rounded),
-                    // Wired in Firebase commit
-                    onPressed: () {},
-                    tooltip: 'Add to favorites',
+                    icon: Icon(
+                      isFav
+                          ? Icons.favorite_rounded
+                          : Icons.favorite_border_rounded,
+                      color: isFav ? Colors.red : null,
+                    ),
+                    onPressed: () => _toggleFavorite(ref),
+                    tooltip:
+                        isFav ? 'Remove from favorites' : 'Add to favorites',
                   ),
                 ),
               ),
