@@ -1,12 +1,12 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:food_hub/features/recipes/data/models/category_model.dart';
 import 'package:food_hub/features/home/presentation/widgets/category_card.dart';
+import 'package:food_hub/features/recipes/data/models/category_model.dart';
 
 void main() {
   setUpAll(() {
-    // Override HTTP calls for cached_network_image in tests
     HttpOverrides.global = _TestHttpOverrides();
   });
 
