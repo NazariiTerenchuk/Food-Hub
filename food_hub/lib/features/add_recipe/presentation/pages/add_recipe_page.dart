@@ -31,8 +31,12 @@ class _AddRecipePageState extends ConsumerState<AddRecipePage> {
   }
 
   Future<void> _pickImage(ImageSource source) async {
-    final picked =
-        await ImagePicker().pickImage(source: source, imageQuality: 80);
+    final picked = await ImagePicker().pickImage(
+      source: source,
+      imageQuality: 50, // Heavily compressed to fit in 1MB Firestore doc
+      maxWidth: 600,
+      maxHeight: 600,
+    );
     if (picked != null) setState(() => _photo = File(picked.path));
   }
 

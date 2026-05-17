@@ -1,15 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
 import '../../data/repositories/add_recipe_repository.dart';
 
 final addRecipeRepositoryProvider = Provider<AddRecipeRepository>(
-  (ref) => AddRecipeRepository(
-    FirebaseFirestore.instance,
-    FirebaseStorage.instance,
-  ),
+  (ref) => AddRecipeRepository(FirebaseFirestore.instance),
 );
 
 /// State for the add-recipe form.
@@ -39,13 +36,19 @@ class AddRecipeNotifier extends AutoDisposeNotifier<AddRecipeState> {
     }
     state = const AddRecipeState(loading: true);
     try {
+      String? photoBase64;
+      if (photo != null) {
+        final bytes = await photo.readAsBytes();
+        photoBase64 = base64Encode(bytes);
+      }
+
       await ref.read(addRecipeRepositoryProvider).saveRecipe(
             uid: uid,
             name: name,
             description: description,
             ingredients: ingredients,
             steps: steps,
-            photo: photo,
+            photoBase64: photoBase64,
           );
       state = const AddRecipeState(success: true);
     } catch (e) {

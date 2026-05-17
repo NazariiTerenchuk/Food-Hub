@@ -7,7 +7,7 @@ final class CustomRecipeModel {
   final String description;
   final List<String> ingredients;
   final List<String> steps;
-  final String? photoUrl;
+  final String? photoBase64;
   final String authorId;
   final DateTime createdAt;
 
@@ -17,7 +17,7 @@ final class CustomRecipeModel {
     required this.description,
     required this.ingredients,
     required this.steps,
-    this.photoUrl,
+    this.photoBase64,
     required this.authorId,
     required this.createdAt,
   });
@@ -28,7 +28,7 @@ final class CustomRecipeModel {
         'description': description,
         'ingredients': ingredients,
         'steps': steps,
-        'photoUrl': photoUrl,
+        'photoBase64': photoBase64,
         'authorId': authorId,
         'createdAt': Timestamp.fromDate(createdAt),
       };
@@ -40,7 +40,7 @@ final class CustomRecipeModel {
         description: data['description'] as String? ?? '',
         ingredients: List<String>.from(data['ingredients'] as List),
         steps: List<String>.from(data['steps'] as List),
-        photoUrl: data['photoUrl'] as String?,
+        photoBase64: data['photoBase64'] as String?,
         authorId: data['authorId'] as String,
         createdAt: (data['createdAt'] as Timestamp).toDate(),
       );
