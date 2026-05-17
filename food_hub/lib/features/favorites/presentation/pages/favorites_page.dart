@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../../core/utils/string_translator.dart';
 import '../../../../shared/widgets/empty_view.dart';
 import '../../../../shared/widgets/error_view.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
@@ -90,7 +91,7 @@ class _FavTile extends ConsumerWidget {
         ),
         title: Text(fav.name,
             style: const TextStyle(fontWeight: FontWeight.w600)),
-        subtitle: Text(fav.category,
+        subtitle: Text(fav.category.translateDynamic(context),
             style: TextStyle(
                 color: theme.colorScheme.primary, fontSize: 12)),
         trailing: IconButton(

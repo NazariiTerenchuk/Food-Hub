@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/utils/string_translator.dart';
 import '../../../../features/recipes/data/models/category_model.dart';
 
 /// Grid card for a meal category.
@@ -80,7 +81,7 @@ class CategoryCard extends StatelessWidget {
                     left: 12,
                     right: 12,
                     child: Text(
-                      category.name,
+                      category.name.translateDynamic(context),
                       style: theme.textTheme.titleSmall?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w700,

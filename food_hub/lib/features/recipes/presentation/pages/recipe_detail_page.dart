@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/utils/string_translator.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/widgets/error_view.dart';
 import '../../../../shared/widgets/loading_view.dart';
@@ -176,14 +177,14 @@ class _DetailBody extends ConsumerWidget {
                       if (meal.area.isNotEmpty)
                         Chip(
                           avatar: const Icon(Icons.place_outlined, size: 16),
-                          label: Text(meal.area),
+                          label: Text(meal.area.translateDynamic(context)),
                           visualDensity: VisualDensity.compact,
                         ),
                       if (meal.category.isNotEmpty)
                         Chip(
                           avatar: const Icon(Icons.category_outlined,
                               size: 16),
-                          label: Text(meal.category),
+                          label: Text(meal.category.translateDynamic(context)),
                           visualDensity: VisualDensity.compact,
                         ),
                       ...meal.tags.map(

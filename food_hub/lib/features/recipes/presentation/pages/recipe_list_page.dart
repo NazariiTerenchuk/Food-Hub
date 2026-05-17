@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../core/utils/string_translator.dart';
 import '../../../../shared/widgets/empty_view.dart';
 import '../../../../shared/widgets/error_view.dart';
 import '../providers/filter_provider.dart';
@@ -69,8 +70,8 @@ class _RecipeListPageState extends ConsumerState<RecipeListPage> {
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(
                   filter.hasArea
-                      ? '${filter.selectedArea} Cuisine'
-                      : widget.categoryName,
+                      ? '${filter.selectedArea!.translateDynamic(context)} Cuisine'
+                      : widget.categoryName.translateDynamic(context),
                   style: theme.textTheme.titleLarge
                       ?.copyWith(fontWeight: FontWeight.w800),
                 ),
@@ -88,8 +89,8 @@ class _RecipeListPageState extends ConsumerState<RecipeListPage> {
                 child: SearchBar(
                   controller: _searchController,
                   hintText: filter.hasArea
-                      ? 'Search in ${filter.selectedArea}...'
-                      : 'Search in ${widget.categoryName}...',
+                      ? 'Search in ${filter.selectedArea!.translateDynamic(context)}...'
+                      : 'Search in ${widget.categoryName.translateDynamic(context)}...',
                   leading: const Icon(Icons.search_rounded),
                   onChanged: (_) => setState(() {}),
                   elevation: const WidgetStatePropertyAll(1),
@@ -110,7 +111,7 @@ class _RecipeListPageState extends ConsumerState<RecipeListPage> {
                     final area = popularAreas[i];
                     final selected = filter.selectedArea == area;
                     return FilterChip(
-                      label: Text(area),
+                      label: Text(area.translateDynamic(context)),
                       selected: selected,
                       onSelected: (_) =>
                           ref.read(filterProvider.notifier).toggleArea(area),

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/utils/string_translator.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../recipes/presentation/providers/meal_providers.dart';
 
@@ -113,9 +114,10 @@ class MealOfDayCard extends ConsumerWidget {
                       // Category + Area
                       if (meal.category.isNotEmpty || meal.area.isNotEmpty)
                         Text(
-                          [meal.area, meal.category]
-                              .where((s) => s.isNotEmpty)
-                              .join(' • '),
+                          [
+                            meal.area.translateDynamic(context),
+                            meal.category.translateDynamic(context),
+                          ].where((s) => s.isNotEmpty).join(' • '),
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: Colors.white70,
                           ),

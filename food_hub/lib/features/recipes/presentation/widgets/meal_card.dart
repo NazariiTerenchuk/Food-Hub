@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../../../core/utils/string_translator.dart';
 import '../../data/models/meal_model.dart';
 
 /// Horizontal list card for a single meal.
@@ -79,8 +80,12 @@ class MealCard extends StatelessWidget {
                             const SizedBox(width: 4),
                             Expanded(
                               child: Text(
-                                [meal.area, meal.category]
+                                [
+                                  meal.area?.translateDynamic(context),
+                                  meal.category?.translateDynamic(context)
+                                ]
                                     .whereType<String>()
+                                    .where((s) => s.isNotEmpty)
                                     .join(' • '),
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: theme.colorScheme.primary,

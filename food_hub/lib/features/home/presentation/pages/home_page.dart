@@ -183,7 +183,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       final category = filtered[index];
                       return CategoryCard(
                         category: category,
-                        onTap: () => context.go(
+                        onTap: () => context.push(
                           '${AppRoutes.recipeList}?category=${Uri.encodeComponent(category.name)}',
                         ),
                       );
