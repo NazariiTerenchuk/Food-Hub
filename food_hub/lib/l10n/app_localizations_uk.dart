@@ -12,135 +12,120 @@ class AppLocalizationsUk extends AppLocalizations {
   String get appTitle => 'FoodHub';
 
   @override
-  String get navHome => 'Головна';
+  String get home => 'Головна';
 
   @override
-  String get navFavorites => 'Вибране';
-
-  @override
-  String get navAdd => 'Додати';
-
-  @override
-  String get navProfile => 'Профіль';
-
-  @override
-  String get loginTitle => 'З поверненням!';
-
-  @override
-  String get loginSubtitle => 'Увійдіть, щоб відкрити нові рецепти';
-
-  @override
-  String get registerTitle => 'Створити акаунт';
-
-  @override
-  String get email => 'Електронна пошта';
-
-  @override
-  String get password => 'Пароль';
-
-  @override
-  String get confirmPassword => 'Підтвердити пароль';
-
-  @override
-  String get login => 'Увійти';
-
-  @override
-  String get register => 'Зареєструватися';
-
-  @override
-  String get forgotPassword => 'Забули пароль?';
-
-  @override
-  String get noAccount => 'Немає акаунту? ';
-
-  @override
-  String get hasAccount => 'Вже є акаунт? ';
-
-  @override
-  String get homeGreeting => 'Що приготуємо сьогодні?';
-
-  @override
-  String get categories => 'Категорії';
-
-  @override
-  String get mealOfDay => 'Рецепт дня';
-
-  @override
-  String get search => 'Шукати рецепти...';
-
-  @override
-  String get favorites => 'Вибране';
-
-  @override
-  String get noFavorites => 'Поки що немає вибраного';
-
-  @override
-  String get noFavoritesSubtitle =>
-      'Починайте досліджувати та зберігайте рецепти, які вам подобаються!';
+  String get favorites => 'Улюблені';
 
   @override
   String get addRecipe => 'Додати рецепт';
 
   @override
-  String get recipeName => 'Назва рецепту';
+  String get profile => 'Профіль';
 
   @override
-  String get recipeDescription => 'Опис';
+  String get searchHint => 'Пошук рецептів...';
+
+  @override
+  String get mealOfDay => 'Рецепт дня';
+
+  @override
+  String get categories => 'Категорії';
 
   @override
   String get ingredients => 'Інгредієнти';
 
   @override
-  String get instructions => 'Приготування';
-
-  @override
-  String get uploadPhoto => 'Завантажити фото';
-
-  @override
-  String get camera => 'Камера';
-
-  @override
-  String get gallery => 'Галерея';
-
-  @override
-  String get save => 'Зберегти';
-
-  @override
-  String get cancel => 'Скасувати';
-
-  @override
-  String get profile => 'Профіль';
-
-  @override
-  String get settings => 'Налаштування';
-
-  @override
-  String get theme => 'Тема';
-
-  @override
-  String get language => 'Мова';
-
-  @override
-  String get logout => 'Вийти';
-
-  @override
-  String get errorGeneral => 'Щось пішло не так. Спробуйте ще раз.';
-
-  @override
-  String get errorNetwork => 'Немає підключення до мережі. Перевірте інтернет.';
-
-  @override
-  String get loading => 'Завантаження...';
-
-  @override
-  String get retry => 'Повторити';
+  String get instructions => 'Інструкція';
 
   @override
   String get watchOnYoutube => 'Дивитися на YouTube';
 
   @override
-  String get addedToFavorites => 'Додано до вибраного';
+  String get noFavoritesYet => 'Ще немає улюблених';
 
   @override
-  String get removedFromFavorites => 'Видалено з вибраного';
+  String get noFavoritesDesc =>
+      'Натисніть сердечко на будь-якому рецепті, щоб зберегти його тут.';
+
+  @override
+  String get signIn => 'Увійти';
+
+  @override
+  String get signUp => 'Реєстрація';
+
+  @override
+  String get welcomeBack => 'З поверненням!';
+
+  @override
+  String get signInToContinue => 'Увійдіть, щоб продовжити';
+
+  @override
+  String get email => 'Пошта';
+
+  @override
+  String get password => 'Пароль';
+
+  @override
+  String get forgotPassword => 'Забули пароль?';
+
+  @override
+  String get dontHaveAccount => 'Немає акаунту? ';
+
+  @override
+  String get createAccount => 'Створити акаунт';
+
+  @override
+  String get startCulinaryJourney => 'Почніть свою кулінарну подорож';
+
+  @override
+  String get confirmPassword => 'Підтвердіть пароль';
+
+  @override
+  String get alreadyHaveAccount => 'Вже є акаунт? ';
+
+  @override
+  String get recipeSaved => 'Рецепт збережено! 🎉';
+
+  @override
+  String get signInToAddRecipes => 'Увійдіть, щоб додати свої рецепти';
+
+  @override
+  String get save => 'Зберегти';
+
+  @override
+  String get addPhoto => 'Додати фото';
+
+  @override
+  String get recipeName => 'Назва рецепту *';
+
+  @override
+  String get description => 'Опис';
+
+  @override
+  String get add => 'Додати';
+
+  @override
+  String get notLoggedIn => 'Не авторизовано';
+
+  @override
+  String get settings => 'Налаштування';
+
+  @override
+  String get darkMode => 'Темна тема';
+
+  @override
+  String get language => 'Мова';
+
+  @override
+  String get signOut => 'Вийти';
+
+  @override
+  String get takePhoto => 'Зробити фото';
+
+  @override
+  String get chooseFromGallery => 'Вибрати з галереї';
+
+  @override
+  String get signInToSeeFavorites => 'Увійдіть, щоб побачити улюблені';
 }

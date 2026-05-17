@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/providers/app_providers.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
 
 class ProfilePage extends ConsumerWidget {
@@ -12,6 +13,7 @@ class ProfilePage extends ConsumerWidget {
     final themeMode = ref.watch(themeProvider);
     final locale = ref.watch(languageProvider);
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     // Extract first letter for avatar
     final initial = user?.email?.isNotEmpty == true
@@ -20,7 +22,7 @@ class ProfilePage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: Text(l10n.profile),
         centerTitle: false,
       ),
       body: ListView(
@@ -42,7 +44,7 @@ class ProfilePage extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            user?.email ?? 'Not logged in',
+            user?.email ?? l10n.notLoggedIn,
             textAlign: TextAlign.center,
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.w700,
@@ -52,7 +54,7 @@ class ProfilePage extends ConsumerWidget {
 
           // ── Settings ───────────────────────────────────────────────────────
           Text(
-            'Settings',
+            l10n.settings,
             style: theme.textTheme.labelLarge?.copyWith(
               color: theme.colorScheme.primary,
               fontWeight: FontWeight.bold,
@@ -74,7 +76,7 @@ class ProfilePage extends ConsumerWidget {
                   onChanged: (val) => ref.read(themeProvider.notifier).setMode(
                         val ? ThemeMode.dark : ThemeMode.light,
                       ),
-                  title: const Text('Dark Mode'),
+                  title: Text(l10n.darkMode),
                   secondary: const Icon(Icons.dark_mode_outlined),
                 ),
                 const Divider(height: 1, indent: 56),
@@ -82,7 +84,7 @@ class ProfilePage extends ConsumerWidget {
                 // Language Dropdown
                 ListTile(
                   leading: const Icon(Icons.language_rounded),
-                  title: const Text('Language'),
+                  title: Text(l10n.language),
                   trailing: DropdownButton<String>(
                     value: locale.languageCode,
                     underline: const SizedBox.shrink(),
@@ -109,7 +111,7 @@ class ProfilePage extends ConsumerWidget {
           FilledButton.icon(
             onPressed: () => ref.read(authRepositoryProvider).signOut(),
             icon: const Icon(Icons.logout_rounded),
-            label: const Text('Sign Out'),
+            label: Text(l10n.signOut),
             style: FilledButton.styleFrom(
               backgroundColor: theme.colorScheme.errorContainer,
               foregroundColor: theme.colorScheme.onErrorContainer,

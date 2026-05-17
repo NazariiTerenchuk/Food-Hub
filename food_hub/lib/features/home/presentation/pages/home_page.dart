@@ -5,6 +5,7 @@ import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../shared/widgets/empty_view.dart';
 import '../../../../shared/widgets/error_view.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../recipes/presentation/providers/meal_providers.dart';
 import '../widgets/category_card.dart';
 import '../widgets/meal_of_day_card.dart';
@@ -30,6 +31,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final categoriesAsync = ref.watch(categoriesProvider);
 
     return Scaffold(
@@ -89,7 +91,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
                   child: SearchBar(
                     controller: _searchController,
-                    hintText: 'Search recipes...',
+                    hintText: l10n.searchHint,
                     leading: const Icon(Icons.search_rounded),
                     onChanged: (_) => setState(() {}),
                     elevation: const WidgetStatePropertyAll(1),
@@ -103,7 +105,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 4),
                   child: Text(
-                    'Meal of the Day',
+                    l10n.mealOfDay,
                     style: theme.textTheme.titleLarge
                         ?.copyWith(fontWeight: FontWeight.w800),
                   ),
@@ -122,7 +124,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
                 child: Text(
-                  'Categories',
+                  l10n.categories,
                   style: theme.textTheme.titleLarge
                       ?.copyWith(fontWeight: FontWeight.w800),
                 ),

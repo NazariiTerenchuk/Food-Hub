@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../data/repositories/auth_repository_impl.dart';
 import '../providers/auth_provider.dart';
 
@@ -53,6 +54,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -66,11 +68,11 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                 const Icon(Icons.restaurant_rounded,
                     size: 72, color: AppColors.primary),
                 const SizedBox(height: 16),
-                Text('Create Account',
+                Text(l10n.createAccount,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.headlineMedium
                         ?.copyWith(fontWeight: FontWeight.w800)),
-                Text('Start your culinary journey',
+                Text(l10n.startCulinaryJourney,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyLarge?.copyWith(
                         color: theme.colorScheme.onSurface
@@ -80,9 +82,9 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                   controller: _emailCtrl,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                      labelText: 'Email',
-                      prefixIcon: Icon(Icons.email_outlined)),
+                  decoration: InputDecoration(
+                      labelText: l10n.email,
+                      prefixIcon: const Icon(Icons.email_outlined)),
                   validator: (v) => (v == null || !v.contains('@'))
                       ? 'Enter a valid email'
                       : null,
@@ -93,7 +95,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                   obscureText: _obscurePass,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
-                    labelText: 'Password',
+                    labelText: l10n.password,
                     prefixIcon: const Icon(Icons.lock_outline_rounded),
                     suffixIcon: IconButton(
                       icon: Icon(_obscurePass
@@ -114,7 +116,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                   textInputAction: TextInputAction.done,
                   onFieldSubmitted: (_) => _submit(),
                   decoration: InputDecoration(
-                    labelText: 'Confirm Password',
+                    labelText: l10n.confirmPassword,
                     prefixIcon: const Icon(Icons.lock_outline_rounded),
                     suffixIcon: IconButton(
                       icon: Icon(_obscureConfirm
@@ -137,15 +139,15 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                           width: 20,
                           child: CircularProgressIndicator(
                               strokeWidth: 2, color: Colors.white))
-                      : const Text('Create Account'),
+                      : Text(l10n.createAccount),
                 ),
                 const SizedBox(height: 16),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text('Already have an account? ',
+                  Text(l10n.alreadyHaveAccount,
                       style: theme.textTheme.bodyMedium),
                   TextButton(
                     onPressed: () => context.go(AppRoutes.login),
-                    child: const Text('Sign In'),
+                    child: Text(l10n.signIn),
                   ),
                 ]),
               ],

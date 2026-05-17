@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/widgets/error_view.dart';
 import '../../../../shared/widgets/loading_view.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
@@ -85,6 +86,8 @@ class _DetailBody extends ConsumerWidget {
     final isFavAsync = ref.watch(isFavoriteProvider(meal.id));
     final isFav = isFavAsync.value ?? false;
 
+    final l10n = AppLocalizations.of(context)!;
+    
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -196,7 +199,7 @@ class _DetailBody extends ConsumerWidget {
 
                   // ── Ingredients ───────────────────────────────────────
                   Text(
-                    'Ingredients',
+                    l10n.ingredients,
                     style: theme.textTheme.titleLarge
                         ?.copyWith(fontWeight: FontWeight.w800),
                   ),
@@ -212,7 +215,7 @@ class _DetailBody extends ConsumerWidget {
 
                   // ── Instructions ──────────────────────────────────────
                   Text(
-                    'Instructions',
+                    l10n.instructions,
                     style: theme.textTheme.titleLarge
                         ?.copyWith(fontWeight: FontWeight.w800),
                   ),
@@ -233,7 +236,7 @@ class _DetailBody extends ConsumerWidget {
                       child: FilledButton.icon(
                         onPressed: () => _openYoutube(meal.youtubeUrl!),
                         icon: const Icon(Icons.play_circle_outline_rounded),
-                        label: const Text('Watch on YouTube'),
+                        label: Text(l10n.watchOnYoutube),
                         style: FilledButton.styleFrom(
                           backgroundColor: const Color(0xFFFF0000),
                           foregroundColor: Colors.white,

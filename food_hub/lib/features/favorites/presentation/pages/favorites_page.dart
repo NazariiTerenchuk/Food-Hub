@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/widgets/empty_view.dart';
 import '../../../../shared/widgets/error_view.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
@@ -13,6 +14,7 @@ class FavoritesPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final isLoggedIn = ref.watch(isLoggedInProvider);
     if (!isLoggedIn) {
       return Scaffold(
@@ -22,11 +24,11 @@ class FavoritesPage extends ConsumerWidget {
             children: [
               const Icon(Icons.favorite_border_rounded, size: 80),
               const SizedBox(height: 16),
-              const Text('Sign in to see your favorites'),
+              Text(l10n.signInToSeeFavorites),
               const SizedBox(height: 24),
               FilledButton(
                 onPressed: () => context.go(AppRoutes.login),
-                child: const Text('Sign In'),
+                child: Text(l10n.signIn),
               ),
             ],
           ),
@@ -38,7 +40,7 @@ class FavoritesPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Favorites'),
+        title: Text(l10n.favorites),
         centerTitle: false,
       ),
       body: favAsync.when(
@@ -46,10 +48,10 @@ class FavoritesPage extends ConsumerWidget {
         error: (e, _) => ErrorView(message: e.toString()),
         data: (favs) {
           if (favs.isEmpty) {
-            return const EmptyView(
+            return EmptyView(
               icon: Icons.favorite_border_rounded,
-              title: 'No favorites yet',
-              subtitle: 'Tap the heart on any recipe to save it here.',
+              title: l10n.noFavoritesYet,
+              subtitle: l10n.noFavoritesDesc,
             );
           }
           return ListView.separated(
@@ -74,13 +76,16 @@ class _FavTile extends ConsumerWidget {
     return Card(
       child: ListTile(
         contentPadding: const EdgeInsets.all(8),
-        leading: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.network(
-            fav.thumbnailUrl,
-            width: 60,
-            height: 60,
-            fit: BoxFit.cover,
+        leading: Hero(
+          tag: 'meal_${fav.mealId}',
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.network(
+              fav.thumbnailUrl,
+              width: 60,
+              height: 60,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         title: Text(fav.name,

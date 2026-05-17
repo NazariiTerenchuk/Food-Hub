@@ -12,80 +12,25 @@ class AppLocalizationsPl extends AppLocalizations {
   String get appTitle => 'FoodHub';
 
   @override
-  String get navHome => 'Główna';
-
-  @override
-  String get navFavorites => 'Ulubione';
-
-  @override
-  String get navAdd => 'Dodaj';
-
-  @override
-  String get navProfile => 'Profil';
-
-  @override
-  String get loginTitle => 'Witaj ponownie!';
-
-  @override
-  String get loginSubtitle => 'Zaloguj się, aby odkryć niesamowite przepisy';
-
-  @override
-  String get registerTitle => 'Utwórz konto';
-
-  @override
-  String get email => 'Email';
-
-  @override
-  String get password => 'Hasło';
-
-  @override
-  String get confirmPassword => 'Potwierdź hasło';
-
-  @override
-  String get login => 'Zaloguj się';
-
-  @override
-  String get register => 'Utwórz konto';
-
-  @override
-  String get forgotPassword => 'Zapomniałeś hasła?';
-
-  @override
-  String get noAccount => 'Nie masz konta? ';
-
-  @override
-  String get hasAccount => 'Masz już konto? ';
-
-  @override
-  String get homeGreeting => 'Co chciałbyś dziś ugotować?';
-
-  @override
-  String get categories => 'Kategorie';
-
-  @override
-  String get mealOfDay => 'Przepis dnia';
-
-  @override
-  String get search => 'Szukaj przepisów...';
+  String get home => 'Główna';
 
   @override
   String get favorites => 'Ulubione';
 
   @override
-  String get noFavorites => 'Brak ulubionych';
-
-  @override
-  String get noFavoritesSubtitle =>
-      'Zacznij odkrywać i zapisywać przepisy, które lubisz!';
-
-  @override
   String get addRecipe => 'Dodaj przepis';
 
   @override
-  String get recipeName => 'Nazwa przepisu';
+  String get profile => 'Profil';
 
   @override
-  String get recipeDescription => 'Opis';
+  String get searchHint => 'Szukaj przepisów...';
+
+  @override
+  String get mealOfDay => 'Przepis dnia';
+
+  @override
+  String get categories => 'Kategorie';
 
   @override
   String get ingredients => 'Składniki';
@@ -94,53 +39,93 @@ class AppLocalizationsPl extends AppLocalizations {
   String get instructions => 'Instrukcje';
 
   @override
-  String get uploadPhoto => 'Prześlij zdjęcie';
+  String get watchOnYoutube => 'Obejrzyj na YouTube';
 
   @override
-  String get camera => 'Aparat';
+  String get noFavoritesYet => 'Brak ulubionych';
 
   @override
-  String get gallery => 'Galeria';
+  String get noFavoritesDesc =>
+      'Kliknij serce na dowolnym przepisie, aby go tu zapisać.';
+
+  @override
+  String get signIn => 'Zaloguj się';
+
+  @override
+  String get signUp => 'Zarejestruj się';
+
+  @override
+  String get welcomeBack => 'Witaj z powrotem!';
+
+  @override
+  String get signInToContinue => 'Zaloguj się, aby kontynuować';
+
+  @override
+  String get email => 'E-mail';
+
+  @override
+  String get password => 'Hasło';
+
+  @override
+  String get forgotPassword => 'Zapomniałeś hasła?';
+
+  @override
+  String get dontHaveAccount => 'Nie masz konta? ';
+
+  @override
+  String get createAccount => 'Utwórz konto';
+
+  @override
+  String get startCulinaryJourney => 'Rozpocznij kulinarną podróż';
+
+  @override
+  String get confirmPassword => 'Potwierdź hasło';
+
+  @override
+  String get alreadyHaveAccount => 'Masz już konto? ';
+
+  @override
+  String get recipeSaved => 'Przepis zapisany! 🎉';
+
+  @override
+  String get signInToAddRecipes => 'Zaloguj się, aby dodać swoje przepisy';
 
   @override
   String get save => 'Zapisz';
 
   @override
-  String get cancel => 'Anuluj';
+  String get addPhoto => 'Dodaj zdjęcie';
 
   @override
-  String get profile => 'Profil';
+  String get recipeName => 'Nazwa przepisu *';
+
+  @override
+  String get description => 'Opis';
+
+  @override
+  String get add => 'Dodaj';
+
+  @override
+  String get notLoggedIn => 'Nie zalogowano';
 
   @override
   String get settings => 'Ustawienia';
 
   @override
-  String get theme => 'Motyw';
+  String get darkMode => 'Tryb ciemny';
 
   @override
   String get language => 'Język';
 
   @override
-  String get logout => 'Wyloguj się';
+  String get signOut => 'Wyloguj się';
 
   @override
-  String get errorGeneral => 'Coś poszło nie tak. Spróbuj ponownie.';
+  String get takePhoto => 'Zrób zdjęcie';
 
   @override
-  String get errorNetwork => 'Brak połączenia z internetem. Sprawdź sieć.';
+  String get chooseFromGallery => 'Wybierz z galerii';
 
   @override
-  String get loading => 'Ładowanie...';
-
-  @override
-  String get retry => 'Ponów próbę';
-
-  @override
-  String get watchOnYoutube => 'Obejrzyj na YouTube';
-
-  @override
-  String get addedToFavorites => 'Dodano do ulubionych';
-
-  @override
-  String get removedFromFavorites => 'Usunięto z ulubionych';
+  String get signInToSeeFavorites => 'Zaloguj się, aby zobaczyć ulubione';
 }

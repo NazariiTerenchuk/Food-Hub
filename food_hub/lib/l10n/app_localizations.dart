@@ -100,275 +100,245 @@ abstract class AppLocalizations {
     Locale('uk')
   ];
 
-  /// The name of the application
+  /// No description provided for @appTitle.
   ///
   /// In en, this message translates to:
   /// **'FoodHub'**
   String get appTitle;
 
-  /// Bottom nav: Home
+  /// No description provided for @home.
   ///
   /// In en, this message translates to:
   /// **'Home'**
-  String get navHome;
+  String get home;
 
-  /// Bottom nav: Favorites
-  ///
-  /// In en, this message translates to:
-  /// **'Favorites'**
-  String get navFavorites;
-
-  /// Bottom nav: Add recipe
-  ///
-  /// In en, this message translates to:
-  /// **'Add'**
-  String get navAdd;
-
-  /// Bottom nav: Profile
-  ///
-  /// In en, this message translates to:
-  /// **'Profile'**
-  String get navProfile;
-
-  /// Login screen title
-  ///
-  /// In en, this message translates to:
-  /// **'Welcome back!'**
-  String get loginTitle;
-
-  /// Login screen subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in to discover amazing recipes'**
-  String get loginSubtitle;
-
-  /// Register screen title
-  ///
-  /// In en, this message translates to:
-  /// **'Create Account'**
-  String get registerTitle;
-
-  /// Email field label
-  ///
-  /// In en, this message translates to:
-  /// **'Email'**
-  String get email;
-
-  /// Password field label
-  ///
-  /// In en, this message translates to:
-  /// **'Password'**
-  String get password;
-
-  /// Confirm password field label
-  ///
-  /// In en, this message translates to:
-  /// **'Confirm Password'**
-  String get confirmPassword;
-
-  /// Login button
-  ///
-  /// In en, this message translates to:
-  /// **'Sign In'**
-  String get login;
-
-  /// Register button
-  ///
-  /// In en, this message translates to:
-  /// **'Create Account'**
-  String get register;
-
-  /// Forgot password link
-  ///
-  /// In en, this message translates to:
-  /// **'Forgot Password?'**
-  String get forgotPassword;
-
-  /// No account text
-  ///
-  /// In en, this message translates to:
-  /// **'Don\'t have an account? '**
-  String get noAccount;
-
-  /// Has account text
-  ///
-  /// In en, this message translates to:
-  /// **'Already have an account? '**
-  String get hasAccount;
-
-  /// Home screen greeting
-  ///
-  /// In en, this message translates to:
-  /// **'What would you like to cook today?'**
-  String get homeGreeting;
-
-  /// Categories section title
-  ///
-  /// In en, this message translates to:
-  /// **'Categories'**
-  String get categories;
-
-  /// Meal of the day section title
-  ///
-  /// In en, this message translates to:
-  /// **'Meal of the Day'**
-  String get mealOfDay;
-
-  /// Search bar placeholder
-  ///
-  /// In en, this message translates to:
-  /// **'Search recipes...'**
-  String get search;
-
-  /// Favorites page title
+  /// No description provided for @favorites.
   ///
   /// In en, this message translates to:
   /// **'Favorites'**
   String get favorites;
 
-  /// Empty favorites message
-  ///
-  /// In en, this message translates to:
-  /// **'No favorites yet'**
-  String get noFavorites;
-
-  /// Empty favorites subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Start exploring and save recipes you love!'**
-  String get noFavoritesSubtitle;
-
-  /// Add recipe page title
+  /// No description provided for @addRecipe.
   ///
   /// In en, this message translates to:
   /// **'Add Recipe'**
   String get addRecipe;
 
-  /// Recipe name field
-  ///
-  /// In en, this message translates to:
-  /// **'Recipe Name'**
-  String get recipeName;
-
-  /// Recipe description field
-  ///
-  /// In en, this message translates to:
-  /// **'Description'**
-  String get recipeDescription;
-
-  /// Ingredients label
-  ///
-  /// In en, this message translates to:
-  /// **'Ingredients'**
-  String get ingredients;
-
-  /// Instructions label
-  ///
-  /// In en, this message translates to:
-  /// **'Instructions'**
-  String get instructions;
-
-  /// Upload photo button
-  ///
-  /// In en, this message translates to:
-  /// **'Upload Photo'**
-  String get uploadPhoto;
-
-  /// Camera option
-  ///
-  /// In en, this message translates to:
-  /// **'Camera'**
-  String get camera;
-
-  /// Gallery option
-  ///
-  /// In en, this message translates to:
-  /// **'Gallery'**
-  String get gallery;
-
-  /// Save button
-  ///
-  /// In en, this message translates to:
-  /// **'Save'**
-  String get save;
-
-  /// Cancel button
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel'**
-  String get cancel;
-
-  /// Profile page title
+  /// No description provided for @profile.
   ///
   /// In en, this message translates to:
   /// **'Profile'**
   String get profile;
 
-  /// Settings section
+  /// No description provided for @searchHint.
   ///
   /// In en, this message translates to:
-  /// **'Settings'**
-  String get settings;
+  /// **'Search recipes...'**
+  String get searchHint;
 
-  /// Theme setting
+  /// No description provided for @mealOfDay.
   ///
   /// In en, this message translates to:
-  /// **'Theme'**
-  String get theme;
+  /// **'Meal of the Day'**
+  String get mealOfDay;
 
-  /// Language setting
+  /// No description provided for @categories.
   ///
   /// In en, this message translates to:
-  /// **'Language'**
-  String get language;
+  /// **'Categories'**
+  String get categories;
 
-  /// Logout button
+  /// No description provided for @ingredients.
   ///
   /// In en, this message translates to:
-  /// **'Sign Out'**
-  String get logout;
+  /// **'Ingredients'**
+  String get ingredients;
 
-  /// General error message
+  /// No description provided for @instructions.
   ///
   /// In en, this message translates to:
-  /// **'Something went wrong. Please try again.'**
-  String get errorGeneral;
+  /// **'Instructions'**
+  String get instructions;
 
-  /// Network error message
-  ///
-  /// In en, this message translates to:
-  /// **'No internet connection. Check your network.'**
-  String get errorNetwork;
-
-  /// Loading state text
-  ///
-  /// In en, this message translates to:
-  /// **'Loading...'**
-  String get loading;
-
-  /// Retry button
-  ///
-  /// In en, this message translates to:
-  /// **'Retry'**
-  String get retry;
-
-  /// YouTube link button
+  /// No description provided for @watchOnYoutube.
   ///
   /// In en, this message translates to:
   /// **'Watch on YouTube'**
   String get watchOnYoutube;
 
-  /// Snackbar: added to favorites
+  /// No description provided for @noFavoritesYet.
   ///
   /// In en, this message translates to:
-  /// **'Added to favorites'**
-  String get addedToFavorites;
+  /// **'No favorites yet'**
+  String get noFavoritesYet;
 
-  /// Snackbar: removed from favorites
+  /// No description provided for @noFavoritesDesc.
   ///
   /// In en, this message translates to:
-  /// **'Removed from favorites'**
-  String get removedFromFavorites;
+  /// **'Tap the heart on any recipe to save it here.'**
+  String get noFavoritesDesc;
+
+  /// No description provided for @signIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get signIn;
+
+  /// No description provided for @signUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get signUp;
+
+  /// No description provided for @welcomeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back!'**
+  String get welcomeBack;
+
+  /// No description provided for @signInToContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to continue'**
+  String get signInToContinue;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get forgotPassword;
+
+  /// No description provided for @dontHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? '**
+  String get dontHaveAccount;
+
+  /// No description provided for @createAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get createAccount;
+
+  /// No description provided for @startCulinaryJourney.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your culinary journey'**
+  String get startCulinaryJourney;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPassword;
+
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? '**
+  String get alreadyHaveAccount;
+
+  /// No description provided for @recipeSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipe saved! 🎉'**
+  String get recipeSaved;
+
+  /// No description provided for @signInToAddRecipes.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to add your own recipes'**
+  String get signInToAddRecipes;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @addPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Photo'**
+  String get addPhoto;
+
+  /// No description provided for @recipeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipe Name *'**
+  String get recipeName;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get add;
+
+  /// No description provided for @notLoggedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Not logged in'**
+  String get notLoggedIn;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @darkMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get darkMode;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @signOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get signOut;
+
+  /// No description provided for @takePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take Photo'**
+  String get takePhoto;
+
+  /// No description provided for @chooseFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from Gallery'**
+  String get chooseFromGallery;
+
+  /// No description provided for @signInToSeeFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to see your favorites'**
+  String get signInToSeeFavorites;
 }
 
 class _AppLocalizationsDelegate

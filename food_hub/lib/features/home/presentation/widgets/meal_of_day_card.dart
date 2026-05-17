@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../recipes/presentation/providers/meal_providers.dart';
 
 /// Featured "Meal of the Day" card shown at the top of the home screen.
@@ -79,7 +80,7 @@ class MealOfDayCard extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          '🍽  Meal of the Day',
+                          '🍽  ${AppLocalizations.of(context)!.mealOfDay}',
                           style: theme.textTheme.labelSmall?.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.w700,

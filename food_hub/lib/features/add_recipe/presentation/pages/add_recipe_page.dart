@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
 import '../providers/add_recipe_provider.dart';
 
@@ -76,11 +77,12 @@ class _AddRecipePageState extends ConsumerState<AddRecipePage> {
     final theme = Theme.of(context);
     final isLoggedIn = ref.watch(isLoggedInProvider);
     final state = ref.watch(addRecipeProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     ref.listen(addRecipeProvider, (_, next) {
       if (next.success) {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Recipe saved! 🎉')));
+            SnackBar(content: Text(l10n.recipeSaved)));
         context.pop();
       }
       if (next.error != null) {
@@ -91,14 +93,14 @@ class _AddRecipePageState extends ConsumerState<AddRecipePage> {
 
     if (!isLoggedIn) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Add Recipe')),
+        appBar: AppBar(title: Text(l10n.addRecipe)),
         body: Center(
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            const Text('Sign in to add your own recipes'),
+            Text(l10n.signInToAddRecipes),
             const SizedBox(height: 16),
             FilledButton(
               onPressed: () => context.go('/login'),
-              child: const Text('Sign In'),
+              child: Text(l10n.signIn),
             ),
           ]),
         ),
@@ -107,7 +109,7 @@ class _AddRecipePageState extends ConsumerState<AddRecipePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Recipe'),
+        title: Text(l10n.addRecipe),
         actions: [
           TextButton(
             onPressed: state.loading ? null : _submit,
@@ -116,7 +118,7 @@ class _AddRecipePageState extends ConsumerState<AddRecipePage> {
                     width: 20,
                     height: 20,
                     child: CircularProgressIndicator(strokeWidth: 2))
-                : const Text('Save'),
+                : Text(l10n.save),
           ),
         ],
       ),
@@ -146,7 +148,7 @@ class _AddRecipePageState extends ConsumerState<AddRecipePage> {
                               size: 48,
                               color: theme.colorScheme.primary),
                           const SizedBox(height: 8),
-                          Text('Add Photo',
+                          Text(l10n.addPhoto,
                               style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.colorScheme.primary)),
                         ],
@@ -159,9 +161,9 @@ class _AddRecipePageState extends ConsumerState<AddRecipePage> {
             // ── Name ─────────────────────────────────────────────────
             TextFormField(
               controller: _nameCtrl,
-              decoration: const InputDecoration(
-                  labelText: 'Recipe Name *',
-                  prefixIcon: Icon(Icons.restaurant_rounded)),
+              decoration: InputDecoration(
+                  labelText: l10n.recipeName,
+                  prefixIcon: const Icon(Icons.restaurant_rounded)),
               validator: (v) => (v == null || v.trim().length < 3)
                   ? 'Name must be at least 3 characters'
                   : null,
@@ -172,17 +174,18 @@ class _AddRecipePageState extends ConsumerState<AddRecipePage> {
             TextFormField(
               controller: _descCtrl,
               maxLines: 3,
-              decoration: const InputDecoration(
-                  labelText: 'Description',
+              decoration: InputDecoration(
+                  labelText: l10n.description,
                   alignLabelWithHint: true,
-                  prefixIcon: Icon(Icons.description_outlined)),
+                  prefixIcon: const Icon(Icons.description_outlined)),
             ),
             const SizedBox(height: 24),
 
             // ── Ingredients ──────────────────────────────────────────
             _SectionHeader(
-                title: 'Ingredients',
-                onAdd: () => _addField(_ingredients)),
+                title: l10n.ingredients,
+                onAdd: () => _addField(_ingredients),
+                addText: l10n.add),
             ..._ingredients.asMap().entries.map((e) => Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Row(children: [
@@ -203,7 +206,9 @@ class _AddRecipePageState extends ConsumerState<AddRecipePage> {
 
             // ── Steps ────────────────────────────────────────────────
             _SectionHeader(
-                title: 'Instructions', onAdd: () => _addField(_steps)),
+                title: l10n.instructions, 
+                onAdd: () => _addField(_steps),
+                addText: l10n.add),
             ..._steps.asMap().entries.map((e) => Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Row(
@@ -251,7 +256,7 @@ class _AddRecipePageState extends ConsumerState<AddRecipePage> {
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           ListTile(
             leading: const Icon(Icons.camera_alt_rounded),
-            title: const Text('Take Photo'),
+            title: Text(AppLocalizations.of(context)!.takePhoto),
             onTap: () {
               Navigator.pop(context);
               _pickImage(ImageSource.camera);
@@ -259,7 +264,7 @@ class _AddRecipePageState extends ConsumerState<AddRecipePage> {
           ),
           ListTile(
             leading: const Icon(Icons.photo_library_rounded),
-            title: const Text('Choose from Gallery'),
+            title: Text(AppLocalizations.of(context)!.chooseFromGallery),
             onTap: () {
               Navigator.pop(context);
               _pickImage(ImageSource.gallery);
@@ -274,7 +279,8 @@ class _AddRecipePageState extends ConsumerState<AddRecipePage> {
 class _SectionHeader extends StatelessWidget {
   final String title;
   final VoidCallback onAdd;
-  const _SectionHeader({required this.title, required this.onAdd});
+  final String addText;
+  const _SectionHeader({required this.title, required this.onAdd, required this.addText});
 
   @override
   Widget build(BuildContext context) {
@@ -290,7 +296,7 @@ class _SectionHeader extends StatelessWidget {
         TextButton.icon(
           onPressed: onAdd,
           icon: const Icon(Icons.add_rounded, size: 18),
-          label: const Text('Add'),
+          label: Text(addText),
         ),
       ]),
     );

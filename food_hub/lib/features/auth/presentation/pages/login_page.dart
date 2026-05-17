@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../data/repositories/auth_repository_impl.dart';
 import '../providers/auth_provider.dart';
 
@@ -50,6 +51,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -63,11 +65,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 const Icon(Icons.restaurant_rounded,
                     size: 72, color: AppColors.primary),
                 const SizedBox(height: 16),
-                Text('Welcome back!',
+                Text(l10n.welcomeBack,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.headlineMedium
                         ?.copyWith(fontWeight: FontWeight.w800)),
-                Text('Sign in to continue',
+                Text(l10n.signInToContinue,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyLarge?.copyWith(
                         color: theme.colorScheme.onSurface
@@ -77,9 +79,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   controller: _emailCtrl,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                      labelText: 'Email',
-                      prefixIcon: Icon(Icons.email_outlined)),
+                  decoration: InputDecoration(
+                      labelText: l10n.email,
+                      prefixIcon: const Icon(Icons.email_outlined)),
                   validator: (v) => (v == null || !v.contains('@'))
                       ? 'Enter a valid email'
                       : null,
@@ -91,7 +93,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   textInputAction: TextInputAction.done,
                   onFieldSubmitted: (_) => _submit(),
                   decoration: InputDecoration(
-                    labelText: 'Password',
+                    labelText: l10n.password,
                     prefixIcon: const Icon(Icons.lock_outline_rounded),
                     suffixIcon: IconButton(
                       icon: Icon(_obscure
@@ -108,7 +110,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: _showReset,
-                    child: const Text('Forgot password?'),
+                    child: Text(l10n.forgotPassword),
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -120,15 +122,15 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           width: 20,
                           child: CircularProgressIndicator(
                               strokeWidth: 2, color: Colors.white))
-                      : const Text('Sign In'),
+                      : Text(l10n.signIn),
                 ),
                 const SizedBox(height: 16),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text("Don't have an account? ",
+                  Text(l10n.dontHaveAccount,
                       style: theme.textTheme.bodyMedium),
                   TextButton(
                     onPressed: () => context.go(AppRoutes.register),
-                    child: const Text('Sign Up'),
+                    child: Text(l10n.signUp),
                   ),
                 ]),
               ],
