@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:translator/translator.dart';
 
 extension StringTranslator on String {
-  /// Translates category and area names dynamically.
+  /// Synchronously translates some hardcoded categories and areas 
+  /// (used for lists/chips where async is not ideal).
   String translateDynamic(BuildContext context) {
     final lang = Localizations.localeOf(context).languageCode;
     
@@ -16,6 +18,22 @@ extension StringTranslator on String {
     }
 
     return this;
+  }
+
+  /// Asynchronously translates full text using Google Translate API.
+  Future<String> translateAsync(BuildContext context) async {
+    if (isEmpty) return this;
+    final lang = Localizations.localeOf(context).languageCode;
+    if (lang == 'en') return this;
+
+    try {
+      final translator = GoogleTranslator();
+      final translation = await translator.translate(this, to: lang);
+      return translation.text;
+    } catch (e) {
+      // If network fails, return original English string.
+      return this;
+    }
   }
 
   static const _ukrainianMap = {
@@ -58,10 +76,13 @@ extension StringTranslator on String {
     'polish': 'Польська',
     'portuguese': 'Португальська',
     'russian': 'Російська',
+    'slovakian': 'Словацька',
+    'slovakia': 'Словацька',
     'spanish': 'Іспанська',
     'thai': 'Тайська',
     'tunisian': 'Туніська',
     'turkish': 'Турецька',
+    'united states': 'Американська',
     'vietnamese': 'В\'єтнамська',
     'unknown': 'Невідома',
   };
@@ -106,10 +127,13 @@ extension StringTranslator on String {
     'polish': 'Polska',
     'portuguese': 'Portugalska',
     'russian': 'Rosyjska',
+    'slovakian': 'Słowacka',
+    'slovakia': 'Słowacka',
     'spanish': 'Hiszpańska',
     'thai': 'Tajska',
     'tunisian': 'Tunezyjska',
     'turkish': 'Turecka',
+    'united states': 'Amerykańska',
     'vietnamese': 'Wietnamska',
     'unknown': 'Nieznana',
   };

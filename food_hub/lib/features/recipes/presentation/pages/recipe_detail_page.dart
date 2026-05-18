@@ -68,8 +68,10 @@ class _DetailBody extends ConsumerWidget {
 
   Future<void> _openYoutube(String url) async {
     final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
+    try {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      debugPrint('Could not launch $url');
     }
   }
 
@@ -255,6 +257,27 @@ class _DetailBody extends ConsumerWidget {
   }
 }
 
+class _AsyncTranslatedText extends StatelessWidget {
+  final String text;
+  final TextStyle? style;
+
+  const _AsyncTranslatedText(this.text, {this.style});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<String>(
+      future: text.translateAsync(context),
+      initialData: text, // Show English immediately while translating
+      builder: (context, snapshot) {
+        return Text(
+          snapshot.data ?? text,
+          style: style,
+        );
+      },
+    );
+  }
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _IngredientRow extends StatelessWidget {
@@ -281,13 +304,13 @@ class _IngredientRow extends StatelessWidget {
           ),
           const SizedBox(width: 14),
           Expanded(
-            child: Text(
+            child: _AsyncTranslatedText(
               name,
               style: theme.textTheme.bodyMedium
                   ?.copyWith(fontWeight: FontWeight.w500),
             ),
           ),
-          Text(
+          _AsyncTranslatedText(
             measure,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.primary,
@@ -337,7 +360,7 @@ class _InstructionStep extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(top: 4),
-              child: Text(text, style: theme.textTheme.bodyMedium),
+              child: _AsyncTranslatedText(text, style: theme.textTheme.bodyMedium),
             ),
           ),
         ],

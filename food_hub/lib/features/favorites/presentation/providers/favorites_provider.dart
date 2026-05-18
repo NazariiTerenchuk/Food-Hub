@@ -15,10 +15,9 @@ final favoritesProvider = StreamProvider<List<FavoriteMealModel>>((ref) {
   return ref.watch(favoritesRepositoryProvider).watchFavorites(uid);
 });
 
-/// Returns true if [mealId] is in the current user's favorites.
-final isFavoriteProvider =
-    FutureProvider.family<bool, String>((ref, mealId) async {
-  final uid = ref.watch(currentUserProvider)?.uid;
-  if (uid == null) return false;
-  return ref.watch(favoritesRepositoryProvider).isFavorite(uid, mealId);
+/// Returns true if [mealId] is in the current user's favorites, reactively.
+final isFavoriteProvider = Provider.family<AsyncValue<bool>, String>((ref, mealId) {
+  return ref.watch(favoritesProvider).whenData(
+    (list) => list.any((fav) => fav.mealId == mealId),
+  );
 });
