@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../domain/repositories/auth_repository.dart';
 
@@ -33,7 +34,15 @@ final class AuthRepositoryImpl implements AuthRepository {
       email: email.trim(),
       password: password,
     );
-    return cred.user!;
+    final user = cred.user!;
+    
+    // Create a basic user document in Firestore so it's visible immediately
+    await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+      'email': user.email,
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+    
+    return user;
   }
 
   @override
