@@ -145,7 +145,8 @@ class AppLocalizationsUk extends AppLocalizations {
   String get deleteRecipe => 'Видалити рецепт';
 
   @override
-  String get deleteRecipeConfirm => 'Ви впевнені, що хочете видалити цей рецепт?';
+  String get deleteRecipeConfirm =>
+      'Ви впевнені, що хочете видалити цей рецепт?';
 
   @override
   String get cancel => 'Скасувати';
@@ -155,4 +156,16 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get edit => 'Редагувати';
+
+  @override
+  String get validEmail => 'Введіть дійсну email';
+
+  @override
+  String get validPassword => 'Пароль має містити мінімум 6 символів';
+
+  @override
+  String get passwordsNoMatch => 'Паролі не співпадають';
+
+  @override
+  String get recipeNameTooShort => 'Назва має містити мінімум 3 символи';
 }

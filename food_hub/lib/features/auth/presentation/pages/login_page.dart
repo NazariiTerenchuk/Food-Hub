@@ -83,7 +83,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       labelText: l10n.email,
                       prefixIcon: const Icon(Icons.email_outlined)),
                   validator: (v) => (v == null || !v.contains('@'))
-                      ? 'Enter a valid email'
+                      ? l10n.validEmail
                       : null,
                 ),
                 const SizedBox(height: 16),
@@ -103,7 +103,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     ),
                   ),
                   validator: (v) => (v == null || v.length < 6)
-                      ? 'Password must be at least 6 characters'
+                      ? l10n.validPassword
                       : null,
                 ),
                 Align(

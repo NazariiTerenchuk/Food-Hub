@@ -341,31 +341,82 @@ abstract class AppLocalizations {
   String get signInToSeeFavorites;
 
   /// No description provided for @myRecipes.
+  ///
+  /// In en, this message translates to:
+  /// **'My Recipes'**
   String get myRecipes;
 
   /// No description provided for @noMyRecipesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No recipes yet'**
   String get noMyRecipesYet;
 
   /// No description provided for @noMyRecipesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first recipe by tapping the + button.'**
   String get noMyRecipesDesc;
 
   /// No description provided for @editRecipe.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Recipe'**
   String get editRecipe;
 
   /// No description provided for @deleteRecipe.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Recipe'**
   String get deleteRecipe;
 
   /// No description provided for @deleteRecipeConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this recipe?'**
   String get deleteRecipeConfirm;
 
   /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
   String get cancel;
 
   /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
   String get delete;
 
   /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
   String get edit;
+
+  /// No description provided for @validEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid email'**
+  String get validEmail;
+
+  /// No description provided for @validPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters'**
+  String get validPassword;
+
+  /// No description provided for @passwordsNoMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsNoMatch;
+
+  /// No description provided for @recipeNameTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Name must be at least 3 characters'**
+  String get recipeNameTooShort;
 }
 
 class _AppLocalizationsDelegate

@@ -135,7 +135,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noMyRecipesYet => 'No recipes yet';
 
   @override
-  String get noMyRecipesDesc => 'Create your first recipe by tapping the + button.';
+  String get noMyRecipesDesc =>
+      'Create your first recipe by tapping the + button.';
 
   @override
   String get editRecipe => 'Edit Recipe';
@@ -144,7 +145,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteRecipe => 'Delete Recipe';
 
   @override
-  String get deleteRecipeConfirm => 'Are you sure you want to delete this recipe?';
+  String get deleteRecipeConfirm =>
+      'Are you sure you want to delete this recipe?';
 
   @override
   String get cancel => 'Cancel';
@@ -154,4 +156,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get edit => 'Edit';
+
+  @override
+  String get validEmail => 'Enter a valid email';
+
+  @override
+  String get validPassword => 'Password must be at least 6 characters';
+
+  @override
+  String get passwordsNoMatch => 'Passwords do not match';
+
+  @override
+  String get recipeNameTooShort => 'Name must be at least 3 characters';
 }

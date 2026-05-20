@@ -216,7 +216,7 @@ class _EditRecipePageState extends ConsumerState<EditRecipePage> {
                   labelText: l10n.recipeName,
                   prefixIcon: const Icon(Icons.restaurant_rounded)),
               validator: (v) => (v == null || v.trim().length < 3)
-                  ? 'Name must be at least 3 characters'
+                  ? l10n.recipeNameTooShort
                   : null,
             ),
             const SizedBox(height: 16),

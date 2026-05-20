@@ -136,7 +136,8 @@ class AppLocalizationsPl extends AppLocalizations {
   String get noMyRecipesYet => 'Brak przepisów';
 
   @override
-  String get noMyRecipesDesc => 'Utwórz pierwszy przepis, naciskając przycisk +.';
+  String get noMyRecipesDesc =>
+      'Utwórz pierwszy przepis, naciskając przycisk +.';
 
   @override
   String get editRecipe => 'Edytuj przepis';
@@ -155,4 +156,16 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get edit => 'Edytuj';
+
+  @override
+  String get validEmail => 'Podaj prawidłowy email';
+
+  @override
+  String get validPassword => 'Hasło musi mieć minimum 6 znaków';
+
+  @override
+  String get passwordsNoMatch => 'Hasła nie są identyczne';
+
+  @override
+  String get recipeNameTooShort => 'Nazwa musi mieć minimum 3 znaki';
 }

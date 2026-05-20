@@ -86,7 +86,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                       labelText: l10n.email,
                       prefixIcon: const Icon(Icons.email_outlined)),
                   validator: (v) => (v == null || !v.contains('@'))
-                      ? 'Enter a valid email'
+                      ? l10n.validEmail
                       : null,
                 ),
                 const SizedBox(height: 16),
@@ -106,7 +106,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                     ),
                   ),
                   validator: (v) => (v == null || v.length < 6)
-                      ? 'Password must be at least 6 characters'
+                      ? l10n.validPassword
                       : null,
                 ),
                 const SizedBox(height: 16),
@@ -127,7 +127,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                     ),
                   ),
                   validator: (v) => v != _passCtrl.text
-                      ? 'Passwords do not match'
+                      ? l10n.passwordsNoMatch
                       : null,
                 ),
                 const SizedBox(height: 24),

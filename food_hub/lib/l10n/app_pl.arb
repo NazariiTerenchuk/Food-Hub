@@ -48,5 +48,9 @@
   "deleteRecipeConfirm": "Czy na pewno chcesz usunąć ten przepis?",
   "cancel": "Anuluj",
   "delete": "Usuń",
-  "edit": "Edytuj"
+  "edit": "Edytuj",
+  "validEmail": "Podaj prawidłowy email",
+  "validPassword": "Hasło musi mieć minimum 6 znaków",
+  "passwordsNoMatch": "Hasła nie są identyczne",
+  "recipeNameTooShort": "Nazwa musi mieć minimum 3 znaki"
 }
