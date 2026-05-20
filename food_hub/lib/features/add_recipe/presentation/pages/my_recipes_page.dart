@@ -184,9 +184,9 @@ class _RecipeCard extends ConsumerWidget {
           trailing: PopupMenuButton<String>(
             onSelected: (val) {
               if (val == 'edit') {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => EditRecipePage(recipe: recipe),
-                ));
+              Navigator.of(context).push(MaterialPageRoute<void>(
+                builder: (_) => EditRecipePage(recipe: recipe),
+              ));
               } else if (val == 'delete') {
                 showDialog<bool>(
                   context: context,

@@ -339,6 +339,33 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sign in to see your favorites'**
   String get signInToSeeFavorites;
+
+  /// No description provided for @myRecipes.
+  String get myRecipes;
+
+  /// No description provided for @noMyRecipesYet.
+  String get noMyRecipesYet;
+
+  /// No description provided for @noMyRecipesDesc.
+  String get noMyRecipesDesc;
+
+  /// No description provided for @editRecipe.
+  String get editRecipe;
+
+  /// No description provided for @deleteRecipe.
+  String get deleteRecipe;
+
+  /// No description provided for @deleteRecipeConfirm.
+  String get deleteRecipeConfirm;
+
+  /// No description provided for @cancel.
+  String get cancel;
+
+  /// No description provided for @delete.
+  String get delete;
+
+  /// No description provided for @edit.
+  String get edit;
 }
 
 class _AppLocalizationsDelegate

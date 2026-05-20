@@ -128,4 +128,31 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get signInToSeeFavorites => 'Увійдіть, щоб побачити улюблені';
+
+  @override
+  String get myRecipes => 'Мої рецепти';
+
+  @override
+  String get noMyRecipesYet => 'Ще немає рецептів';
+
+  @override
+  String get noMyRecipesDesc => 'Створіть перший рецепт, натиснувши кнопку +.';
+
+  @override
+  String get editRecipe => 'Редагувати рецепт';
+
+  @override
+  String get deleteRecipe => 'Видалити рецепт';
+
+  @override
+  String get deleteRecipeConfirm => 'Ви впевнені, що хочете видалити цей рецепт?';
+
+  @override
+  String get cancel => 'Скасувати';
+
+  @override
+  String get delete => 'Видалити';
+
+  @override
+  String get edit => 'Редагувати';
 }

@@ -128,4 +128,31 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get signInToSeeFavorites => 'Zaloguj się, aby zobaczyć ulubione';
+
+  @override
+  String get myRecipes => 'Moje przepisy';
+
+  @override
+  String get noMyRecipesYet => 'Brak przepisów';
+
+  @override
+  String get noMyRecipesDesc => 'Utwórz pierwszy przepis, naciskając przycisk +.';
+
+  @override
+  String get editRecipe => 'Edytuj przepis';
+
+  @override
+  String get deleteRecipe => 'Usuń przepis';
+
+  @override
+  String get deleteRecipeConfirm => 'Czy na pewno chcesz usunąć ten przepis?';
+
+  @override
+  String get cancel => 'Anuluj';
+
+  @override
+  String get delete => 'Usuń';
+
+  @override
+  String get edit => 'Edytuj';
 }

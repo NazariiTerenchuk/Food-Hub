@@ -127,4 +127,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get signInToSeeFavorites => 'Sign in to see your favorites';
+
+  @override
+  String get myRecipes => 'My Recipes';
+
+  @override
+  String get noMyRecipesYet => 'No recipes yet';
+
+  @override
+  String get noMyRecipesDesc => 'Create your first recipe by tapping the + button.';
+
+  @override
+  String get editRecipe => 'Edit Recipe';
+
+  @override
+  String get deleteRecipe => 'Delete Recipe';
+
+  @override
+  String get deleteRecipeConfirm => 'Are you sure you want to delete this recipe?';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get edit => 'Edit';
 }
