@@ -51,6 +51,17 @@ final class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> resetPassword(String email) =>
       _auth.sendPasswordResetEmail(email: email.trim());
+
+  @override
+  Future<void> updateDisplayName(String newName) async {
+    final user = currentUser;
+    if (user != null) {
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
+        'displayName': newName,
+      });
+      await user.updateDisplayName(newName);
+    }
+  }
 }
 
 /// Maps [FirebaseAuthException.code] to a human-readable message.

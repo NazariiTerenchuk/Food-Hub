@@ -27,7 +27,9 @@ class CategoryCard extends StatelessWidget {
         tag: 'category_${category.id}',
         child: Material(
           color: Colors.transparent,
-          child: Container(
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               boxShadow: [

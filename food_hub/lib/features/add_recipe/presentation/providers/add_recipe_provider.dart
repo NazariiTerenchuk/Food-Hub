@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
+import '../../data/models/custom_recipe_model.dart';
 import '../../data/repositories/add_recipe_repository.dart';
 
 final addRecipeRepositoryProvider = Provider<AddRecipeRepository>(
@@ -61,3 +62,11 @@ final addRecipeProvider =
     AutoDisposeNotifierProvider<AddRecipeNotifier, AddRecipeState>(
   AddRecipeNotifier.new,
 );
+
+/// StreamProvider for real-time list of the current user's custom recipes.
+final myRecipesProvider =
+    StreamProvider.autoDispose<List<CustomRecipeModel>>((ref) {
+  final uid = ref.watch(currentUserProvider)?.uid;
+  if (uid == null) return const Stream.empty();
+  return ref.watch(addRecipeRepositoryProvider).watchMyRecipes(uid);
+});

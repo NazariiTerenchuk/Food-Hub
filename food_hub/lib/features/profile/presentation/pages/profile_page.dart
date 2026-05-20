@@ -43,12 +43,23 @@ class ProfilePage extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 16),
-          Text(
-            user?.email ?? l10n.notLoggedIn,
-            textAlign: TextAlign.center,
-            style: theme.textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w700,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                user?.displayName ?? user?.email ?? l10n.notLoggedIn,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              if (user != null)
+                IconButton(
+                  icon: const Icon(Icons.edit_rounded, size: 20),
+                  color: theme.colorScheme.primary,
+                  onPressed: () => _showEditProfileDialog(context, ref, user.displayName ?? ''),
+                ),
+            ],
           ),
           const SizedBox(height: 32),
 
@@ -122,4 +133,33 @@ class ProfilePage extends ConsumerWidget {
       ),
     );
   }
+}
+
+void _showEditProfileDialog(BuildContext context, WidgetRef ref, String currentName) {
+  final ctrl = TextEditingController(text: currentName);
+  showDialog<void>(
+    context: context,
+    builder: (ctx) => AlertDialog(
+      title: const Text('Edit Profile'),
+      content: TextField(
+        controller: ctrl,
+        decoration: const InputDecoration(labelText: 'Display Name'),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(ctx),
+          child: const Text('Cancel'),
+        ),
+        FilledButton(
+          onPressed: () async {
+            if (ctrl.text.trim().isNotEmpty) {
+              await ref.read(authRepositoryProvider).updateDisplayName(ctrl.text.trim());
+            }
+            if (ctx.mounted) Navigator.pop(ctx);
+          },
+          child: const Text('Save'),
+        ),
+      ],
+    ),
+  );
 }

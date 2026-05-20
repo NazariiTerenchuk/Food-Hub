@@ -39,5 +39,14 @@
   "signOut": "Вийти",
   "takePhoto": "Зробити фото",
   "chooseFromGallery": "Вибрати з галереї",
-  "signInToSeeFavorites": "Увійдіть, щоб побачити улюблені"
+  "signInToSeeFavorites": "Увійдіть, щоб побачити улюблені",
+  "myRecipes": "Мої рецепти",
+  "noMyRecipesYet": "Ще немає рецептів",
+  "noMyRecipesDesc": "Створіть перший рецепт, натиснувши кнопку +.",
+  "editRecipe": "Редагувати рецепт",
+  "deleteRecipe": "Видалити рецепт",
+  "deleteRecipeConfirm": "Ви впевнені, що хочете видалити цей рецепт?",
+  "cancel": "Скасувати",
+  "delete": "Видалити",
+  "edit": "Редагувати"
 }

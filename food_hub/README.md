@@ -54,4 +54,9 @@ flutter test
 ```
 
 ## 📸 Screenshots
-*(Add your screenshots here for the final GitHub presentation)*
+
+<p align="center">
+  <img src="screenshots/the%20main%20page.png" alt="Main Page" width="30%" />
+  <img src="screenshots/profile.png" alt="Profile" width="30%" />
+  <img src="screenshots/adding%20a%20receipt.png" alt="Add Recipe" width="30%" />
+</p>

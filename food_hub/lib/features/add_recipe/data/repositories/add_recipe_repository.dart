@@ -46,4 +46,22 @@ final class AddRecipeRepository {
 
   Future<void> deleteRecipe(String uid, String id) =>
       _col(uid).doc(id).delete();
+
+  /// Updates an existing recipe in Firestore.
+  Future<void> updateRecipe({
+    required String uid,
+    required String id,
+    required String name,
+    required String description,
+    required List<String> ingredients,
+    required List<String> steps,
+    String? photoBase64,
+  }) =>
+      _col(uid).doc(id).update({
+        'name': name,
+        'description': description,
+        'ingredients': ingredients,
+        'steps': steps,
+        if (photoBase64 != null) 'photoBase64': photoBase64,
+      });
 }

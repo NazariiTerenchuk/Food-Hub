@@ -39,5 +39,14 @@
   "signOut": "Wyloguj się",
   "takePhoto": "Zrób zdjęcie",
   "chooseFromGallery": "Wybierz z galerii",
-  "signInToSeeFavorites": "Zaloguj się, aby zobaczyć ulubione"
+  "signInToSeeFavorites": "Zaloguj się, aby zobaczyć ulubione",
+  "myRecipes": "Moje przepisy",
+  "noMyRecipesYet": "Brak przepisów",
+  "noMyRecipesDesc": "Utwórz pierwszy przepis, naciskając przycisk +.",
+  "editRecipe": "Edytuj przepis",
+  "deleteRecipe": "Usuń przepis",
+  "deleteRecipeConfirm": "Czy na pewno chcesz usunąć ten przepis?",
+  "cancel": "Anuluj",
+  "delete": "Usuń",
+  "edit": "Edytuj"
 }

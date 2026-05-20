@@ -39,5 +39,14 @@
   "signOut": "Sign Out",
   "takePhoto": "Take Photo",
   "chooseFromGallery": "Choose from Gallery",
-  "signInToSeeFavorites": "Sign in to see your favorites"
+  "signInToSeeFavorites": "Sign in to see your favorites",
+  "myRecipes": "My Recipes",
+  "noMyRecipesYet": "No recipes yet",
+  "noMyRecipesDesc": "Create your first recipe by tapping the + button.",
+  "editRecipe": "Edit Recipe",
+  "deleteRecipe": "Delete Recipe",
+  "deleteRecipeConfirm": "Are you sure you want to delete this recipe?",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "edit": "Edit"
 }

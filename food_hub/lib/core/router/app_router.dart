@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/add_recipe/presentation/pages/add_recipe_page.dart';
+import '../../features/add_recipe/presentation/pages/my_recipes_page.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
 import '../../features/auth/presentation/providers/auth_provider.dart';
@@ -21,12 +22,14 @@ abstract final class AppRoutes {
   static const String recipeDetail = '/recipes/detail';
   static const String favorites = '/favorites';
   static const String addRecipe = '/add-recipe';
+  static const String myRecipes = '/my-recipes';
   static const String profile = '/profile';
 }
 
 /// Routes that require the user to be logged in.
 const _protectedPaths = {
   AppRoutes.addRecipe,
+  AppRoutes.myRecipes,
   AppRoutes.profile,
 };
 
@@ -91,6 +94,11 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: AppRoutes.addRecipe,
             name: 'addRecipe',
             builder: (context, state) => const AddRecipePage(),
+          ),
+          GoRoute(
+            path: AppRoutes.myRecipes,
+            name: 'myRecipes',
+            builder: (context, state) => const MyRecipesPage(),
           ),
           GoRoute(
             path: AppRoutes.profile,

@@ -12,12 +12,14 @@ class AppShell extends StatelessWidget {
   static const List<String> _routes = [
     AppRoutes.home,
     AppRoutes.favorites,
-    AppRoutes.addRecipe,
+    AppRoutes.myRecipes,
     AppRoutes.profile,
   ];
 
   int _selectedIndex(BuildContext context) {
     final location = GoRouterState.of(context).uri.path;
+    // addRecipe lives inside myRecipes conceptually — highlight that tab
+    if (location == AppRoutes.addRecipe) return 2;
     for (int i = 0; i < _routes.length; i++) {
       if (location == _routes[i] ||
           location.startsWith(_routes[i] == '/' ? '/home' : _routes[i])) {
@@ -35,6 +37,14 @@ class AppShell extends StatelessWidget {
 
     return Scaffold(
       body: child,
+      floatingActionButton: selectedIndex == 2
+          ? FloatingActionButton(
+              heroTag: 'add_recipe_fab',
+              onPressed: () => context.go(AppRoutes.addRecipe),
+              tooltip: l10n.addRecipe,
+              child: const Icon(Icons.add_rounded),
+            )
+          : null,
       bottomNavigationBar: NavigationBar(
         selectedIndex: selectedIndex,
         onDestinationSelected: (index) {
@@ -50,17 +60,20 @@ class AppShell extends StatelessWidget {
           ),
           NavigationDestination(
             icon: const Icon(Icons.favorite_outline_rounded),
-            selectedIcon: Icon(Icons.favorite_rounded, color: colorScheme.primary),
+            selectedIcon:
+                Icon(Icons.favorite_rounded, color: colorScheme.primary),
             label: l10n.favorites,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.add_circle_outline_rounded),
-            selectedIcon: Icon(Icons.add_circle_rounded, color: colorScheme.primary),
-            label: l10n.addRecipe,
+            icon: const Icon(Icons.menu_book_outlined),
+            selectedIcon:
+                Icon(Icons.menu_book_rounded, color: colorScheme.primary),
+            label: l10n.myRecipes,
           ),
           NavigationDestination(
             icon: const Icon(Icons.person_outline_rounded),
-            selectedIcon: Icon(Icons.person_rounded, color: colorScheme.primary),
+            selectedIcon:
+                Icon(Icons.person_rounded, color: colorScheme.primary),
             label: l10n.profile,
           ),
         ],
